@@ -12,7 +12,7 @@ var SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Валь
 var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 
-var getProp = function (arr) {
+var getRandomElement = function (arr) {
   var rand = Math.floor(Math.random() * arr.length);
   return arr[rand];
 };
@@ -21,9 +21,9 @@ var getWizards = function (names, surnames, coatColors, eyesColors) {
   var wizards = [];
   for (var i = 0; i < 4; i++) {
     wizards[i] = {
-      name: getProp(names) + ' ' + getProp(surnames),
-      coatColor: getProp(coatColors),
-      eyesColor: getProp(eyesColors)
+      name: getRandomElement(names) + ' ' + getRandomElement(surnames),
+      coatColor: getRandomElement(coatColors),
+      eyesColor: getRandomElement(eyesColors)
     };
   }
   return wizards;
