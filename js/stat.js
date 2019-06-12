@@ -45,7 +45,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillStyle = '#000';
     ctx.fillText(names[i], CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, CLOUD_HEIGHT + CLOUD_Y - GAP / 2);
     ctx.fillText(Math.round(times[i]), CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, CLOUD_HEIGHT + CLOUD_Y - GAP / 2 - FONT_GAP + (barHeight * times[i]) / maxTime - FONT_GAP / 2);
-    ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0,' + getColor(0, 255) + ', 1)';
+    ctx.fillStyle = names[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0,' + getRandomInt(0, 255) + ', 1)';
     ctx.fillRect(CLOUD_X + GAP + (BAR_WIDTH + GAP) * i, CLOUD_HEIGHT + CLOUD_Y - GAP / 2 - FONT_GAP, BAR_WIDTH, (barHeight * times[i]) / maxTime);
   }
 };
