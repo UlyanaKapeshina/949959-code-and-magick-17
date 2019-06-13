@@ -37,15 +37,14 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var wizardsArray = getWizards(NAMES, SURNAMES, COAT_COLORS, EYES_COLORS);
+var wizardsData = getWizards(NAMES, SURNAMES, COAT_COLORS, EYES_COLORS);
 
 var getWizardsFragment = function (wizards) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizard(wizards[i]));
   }
-
-  similarListElement.appendChild(fragment);
+  return fragment;
 };
 
-getWizardsFragment(wizardsArray);
+similarListElement.appendChild(getWizardsFragment(wizardsData));
