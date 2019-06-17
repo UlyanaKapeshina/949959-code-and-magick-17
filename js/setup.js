@@ -77,7 +77,7 @@ var onFireballClick = function () {
 };
 
 var onPopupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE && document.activeElement.tagName !== 'INPUT') {
+  if (evt.keyCode === ESC_KEYCODE && document.activeElement !== userNameInputElement) {
     closePopup();
   }
 };
