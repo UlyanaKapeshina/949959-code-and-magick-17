@@ -18,7 +18,7 @@
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-   // создание магов
+  // создание магов
 
   var getRandomElement = function (array) {
     var random = Math.floor(Math.random() * array.length);
