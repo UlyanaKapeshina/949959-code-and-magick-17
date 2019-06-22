@@ -20,6 +20,8 @@
 
   // создание магов
 
+  document.querySelector('.setup-similar').classList.remove('hidden');
+
   var getRandomElement = function (array) {
     var random = Math.floor(Math.random() * array.length);
     return array[random];
@@ -76,7 +78,7 @@
     fireballColorInputElement.value = color;
   };
 
-  window.dialog = {
+  window.setup = {
     openPopupAction: function () {
       wizardCoatElement.addEventListener('click', onCoatClick);
       wizardEyesElement.addEventListener('click', onEyesClick);

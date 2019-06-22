@@ -19,19 +19,14 @@
   };
 
   var openPopup = function () {
-    document.querySelector('.setup-similar').classList.remove('hidden');
     setupElement.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
-    if (window.dialog !== undefined || window.dialog.xx !== undefined) {
-      window.dialog.openPopupAction();
-    }
+    window.setup.openPopupAction();
   };
   var closePopup = function () {
     setupElement.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
-    if (window.dialog !== undefined || window.dialog.yy !== undefined) {
-      window.dialog.openPopupAction();
-    }
+    window.setup.closePopupAction();
     setupElement.style.left = defaultCoords.x;
     setupElement.style.top = defaultCoords.y;
   };
