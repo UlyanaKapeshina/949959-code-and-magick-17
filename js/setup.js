@@ -14,19 +14,11 @@
   var wizardEyesElement = setupElement.querySelector('.wizard-eyes');
   var wizardFireballElement = setupElement.querySelector('.setup-fireball-wrap');
   var userNameInputElement = setupElement.querySelector('.setup-user-name');
-  var setupOpenElement = document.querySelector('.setup-open');
-  var setupCloseElement = setupElement.querySelector('.setup-close');
+
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
 
-  var defaultCoords = {
-    x: setupElement.style.left,
-    y: setupElement.style.top
-  };
-
-  // создание магов
+   // создание магов
 
   var getRandomElement = function (array) {
     var random = Math.floor(Math.random() * array.length);
@@ -84,51 +76,20 @@
     fireballColorInputElement.value = color;
   };
 
-  // закрытие/открытие окна
+  window.dialog = {
+    openPopupAction: function () {
+      wizardCoatElement.addEventListener('click', onCoatClick);
+      wizardEyesElement.addEventListener('click', onEyesClick);
+      wizardFireballElement.addEventListener('click', onFireballClick);
 
-  var onPopupEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && document.activeElement !== userNameInputElement) {
-      closePopup();
+    },
+    closePopupAction: function () {
+      wizardCoatElement.removeEventListener('click', onCoatClick);
+      wizardEyesElement.removeEventListener('click', onEyesClick);
+      wizardFireballElement.removeEventListener('click', onFireballClick);
     }
   };
 
-  var openPopup = function () {
-    document.querySelector('.setup-similar').classList.remove('hidden');
-    setupElement.classList.remove('hidden');
-    document.addEventListener('keydown', onPopupEscPress);
-    wizardCoatElement.addEventListener('click', onCoatClick);
-    wizardEyesElement.addEventListener('click', onEyesClick);
-    wizardFireballElement.addEventListener('click', onFireballClick);
-  };
-  var closePopup = function () {
-    setupElement.classList.add('hidden');
-    document.removeEventListener('keydown', onPopupEscPress);
-    wizardCoatElement.removeEventListener('click', onCoatClick);
-    wizardEyesElement.removeEventListener('click', onEyesClick);
-    wizardFireballElement.removeEventListener('click', onFireballClick);
-    setupElement.style.left = defaultCoords.x;
-    setupElement.style.top = defaultCoords.y;
-  };
-
-  setupOpenElement.addEventListener('click', function () {
-    openPopup();
-  });
-
-  setupOpenElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      openPopup();
-    }
-  });
-
-  setupCloseElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      closePopup();
-    }
-  });
-
-  setupCloseElement.addEventListener('click', function () {
-    closePopup();
-  });
 
   // валидация формы
 

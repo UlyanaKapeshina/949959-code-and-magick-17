@@ -2,6 +2,55 @@
 (function () {
   var setupElement = document.querySelector('.setup');
   var dialogHandle = setupElement.querySelector('.upload');
+  var setupOpenElement = document.querySelector('.setup-open');
+  var setupCloseElement = setupElement.querySelector('.setup-close');
+  var userNameInputElement = setupElement.querySelector('.setup-user-name');
+  var defaultCoords = {
+    x: setupElement.style.left,
+    y: setupElement.style.top
+  };
+
+  var onPopupEscPress = function (evt) {
+    window.util.isEscEvent(evt, function () {
+      if (document.activeElement !== userNameInputElement) {
+        closePopup();
+      }
+    });
+  };
+
+  var openPopup = function () {
+    document.querySelector('.setup-similar').classList.remove('hidden');
+    setupElement.classList.remove('hidden');
+    document.addEventListener('keydown', onPopupEscPress);
+    if (window.dialog !== undefined || window.dialog.xx !== undefined) {
+      window.dialog.openPopupAction();
+    }
+  };
+  var closePopup = function () {
+    setupElement.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+    if (window.dialog !== undefined || window.dialog.yy !== undefined) {
+      window.dialog.openPopupAction();
+    }
+    setupElement.style.left = defaultCoords.x;
+    setupElement.style.top = defaultCoords.y;
+  };
+
+  setupOpenElement.addEventListener('click', function () {
+    openPopup();
+  });
+
+  setupOpenElement.addEventListener('keydown', function (evt) {
+    window.util.isEnterEvent(evt, openPopup);
+  });
+
+  setupCloseElement.addEventListener('keydown', function (evt) {
+    window.util.isEnterEvent(evt, closePopup);
+  });
+
+  setupCloseElement.addEventListener('click', function () {
+    closePopup();
+  });
 
   // перемещение окна
 
