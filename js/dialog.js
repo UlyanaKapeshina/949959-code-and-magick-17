@@ -127,4 +127,20 @@
     evt.target.style.backgroundColor = '';
     evt.preventDefault();
   });
+
+  var onLoad = function () {
+    formElement.classList.add('hidden');
+  };
+  var onError = function (errorMessage) {
+    var message = document.createElement('div');
+    message.textContent = errorMessage;
+  };
+
+  var formElement = setupElement.querySelector('.setup-wizard-form');
+  formElement.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(formElement), onLoad, onError);
+
+  });
+
 })();
