@@ -20,6 +20,7 @@
 
   var openPopup = function () {
     setupElement.classList.remove('hidden');
+    formElement.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
     window.setup.openPopupAction();
   };
@@ -128,7 +129,7 @@
     evt.preventDefault();
   });
 
-  var onLoad = function () {
+  var onLoad = function (response) {
     formElement.classList.add('hidden');
   };
   var onError = function (errorMessage) {
