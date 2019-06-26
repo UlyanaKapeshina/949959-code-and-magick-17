@@ -129,7 +129,7 @@
     evt.preventDefault();
   });
 
-  var onLoad = function (response) {
+  var onLoad = function () {
     formElement.classList.add('hidden');
   };
   var onError = function (errorMessage) {
