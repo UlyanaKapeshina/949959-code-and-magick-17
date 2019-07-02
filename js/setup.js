@@ -10,20 +10,15 @@
   var wizardCoatElement = setupElement.querySelector('.wizard-coat');
   var wizardEyesElement = setupElement.querySelector('.wizard-eyes');
   var wizardFireballElement = setupElement.querySelector('.setup-fireball-wrap');
-  var userNameInputElement = setupElement.querySelector('.setup-user-name');
-
-  var similarListElement = document.querySelector('.setup-similar-list');
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
   // создание магов
+  var wizards = [];
+  var coatColor = coatColorInputElement.value;
+  var eyesColor = eyesColorInputElement.value;
 
-  var onLoad = function (wizards) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 4; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
-    }
-    document.querySelector('.setup-similar').classList.remove('hidden');
-    similarListElement.appendChild(fragment);
+  var onLoad = function (data) {
+    wizards = data;
+    updateWizards();
   };
 
   var onError = function (errorMessage) {
@@ -35,19 +30,45 @@
     message.style.fontSize = '30px';
     message.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', message);
+    var closeError = function () {
+      message.classList.add('hidden');
+      document.removeEventListener('click', closeError);
+    };
+    document.addEventListener('click', closeError);
+  };
+
+  var getRating = function () {
+    wizards.forEach(function (wizard) {
+      wizard.rating = 0;
+      if (wizard.colorCoat === coatColor) {
+        wizard.rating += 2;
+      }
+      if (wizard.colorEyes === eyesColor) {
+        wizard.rating += 1;
+      }
+
+    });
+  };
+
+  var updateWizards = function () {
+    getRating();
+    var sortWizards = wizards.sort(function (leftWizard, rightWizard) {
+
+      var leftRating = leftWizard.rating;
+      var rightRating = rightWizard.rating;
+      if (leftRating < rightRating) {
+        return 1;
+      }
+      if (leftRating > rightRating) {
+        return -1;
+      }
+      return 0;
+    });
+    window.render(sortWizards);
   };
 
 
   window.backend.load(onLoad, onError);
-
-  var renderWizard = function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').setAttribute('style', 'fill:' + wizard.colorCoat);
-    wizardElement.querySelector('.wizard-eyes').setAttribute('style', 'fill:' + wizard.colorEyes);
-
-    return wizardElement;
-  };
 
   // изменение цветов магов
 
@@ -60,12 +81,16 @@
     var color = getRandomElement(COAT_COLORS);
     wizardCoatElement.style.fill = color;
     coatColorInputElement.value = color;
+    coatColor = color;
+    window.debounce(updateWizards);
   };
 
   var onEyesClick = function () {
     var color = getRandomElement(EYES_COLORS);
     wizardEyesElement.style.fill = color;
     eyesColorInputElement.value = color;
+    eyesColor = color;
+    window.debounce(updateWizards);
   };
   var onFireballClick = function () {
     var color = getRandomElement(FIREBALL_COLORS);
@@ -84,20 +109,9 @@
       wizardCoatElement.removeEventListener('click', onCoatClick);
       wizardEyesElement.removeEventListener('click', onEyesClick);
       wizardFireballElement.removeEventListener('click', onFireballClick);
-    }
+    },
+
+    onError: onError
+
   };
-
-
-  // валидация формы
-
-  userNameInputElement.addEventListener('invalid', function () {
-    if (userNameInputElement.validity.tooShort) {
-      userNameInputElement.setCustomValidity('Имя должно состоять минимум из 2-х символов');
-    } else if (userNameInputElement.validity.tooLong) {
-      userNameInputElement.setCustomValidity('Имя не должно превышать 25-ти символов');
-    } else {
-      userNameInputElement.setCustomValidity('');
-    }
-  });
-
 })();

@@ -1,9 +1,11 @@
 'use strict';
 
 (function () {
-
+  var URL_DATA = 'https://js.dump.academy/code-and-magick/data';
+  var URL = 'https://js.dump.academy/code-and-magick';
+  var TIMEOUT = 3000;
   var load = function (onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick/data';
+
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -20,13 +22,13 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-    xhr.timeout = 3000;
+    xhr.timeout = TIMEOUT;
 
-    xhr.open('GET', URL);
+    xhr.open('GET', URL_DATA);
     xhr.send();
   };
   var save = function (data, onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick';
+
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
